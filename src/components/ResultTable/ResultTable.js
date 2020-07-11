@@ -33,19 +33,6 @@ function ResultTable(props) {
                             <tr key={`${value.team1.key}-${value.team2.key}-${value.date}`} className={styles.table_row}>
                                 <td>{value.date}</td>
                                 <td>
-                                    {/*
-                                  <img
-                                        className={`${styles.trophy_icon} mr-2 ${draw ? "d-none" : (team1Won ? "" : "d-none")}`}
-                                        src={trophy_icon} alt="trophy_icon"/>
-                                    <a href="#" className={styles.team}>{value.team1.name}</a>
-                                    <span className="mx-2">vs</span>
-                                    <a href="#" className={styles.team}>{value.team2.name}</a>
-                                    <img
-                                        className={`${styles.trophy_icon} ml-2 ${draw ? "d-none" : (team1Won ? "d-none" : "")}`}
-                                        src={trophy_icon} alt="trophy_icon"/>
-
-                                    */}
-
                                     <div className="row">
                                         <div className="col-lg-5">
                                             <img

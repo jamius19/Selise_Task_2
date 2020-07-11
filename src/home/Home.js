@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import Dropdown from 'react-dropdown';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link,
     withRouter
 } from "react-router-dom";
