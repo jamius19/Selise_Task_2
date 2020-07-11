@@ -1,23 +1,96 @@
+@import "../global/stylesheets/variables";
+
 .banner {
-  height: 200px;
+  height: 150px;
+  display: block;
   margin: auto;
-
-  background: url("./assets/banner_premier_league.jpg");
-  background-size: cover;
-  position: relative;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15);
-  transition: box-shadow 0.5s;
-
-  &:hover {
-    box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.2);
-  }
 }
 
 .banner_title {
-  position: absolute;
-  top: 40px;
-  right: 25px;
-  color: #3D003E;
+  text-align: center;
+  position: relative;
+  left: 70px;
+  color: #1f52a3;
   font-size: 1.7rem;
   font-weight: bold;
+}
+
+.dropdown {
+  border-bottom: 1px solid adjust_color($primaryColor, $lightness: 35%);
+  padding: 2px 25px 2px 10px;
+  position: relative;
+  cursor: pointer;
+  background: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgNDggNDgiIHdpZHRoPSI0OCI+PHBhdGggZD0iTTE0IDIwbDEwIDEwIDEwLTEweiIvPjxwYXRoIGQ9Ik0wIDBoNDh2NDhoLTQ4eiIgZmlsbD0ibm9uZSIvPgoJCgkKCTxtZXRhZGF0YT4KCQk8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiIHhtbG5zOnJkZnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDEvcmRmLXNjaGVtYSMiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+CgkJCTxyZGY6RGVzY3JpcHRpb24gYWJvdXQ9Imh0dHBzOi8vaWNvbnNjb3V0LmNvbS9sZWdhbCNsaWNlbnNlcyIgZGM6dGl0bGU9IkRyb3Bkb3duLCBLZXlib2FyZCwgQXJyb3csIE1lbnUsIEtleSwgRGlyZWN0aW9uIiBkYzpkZXNjcmlwdGlvbj0iRHJvcGRvd24sIEtleWJvYXJkLCBBcnJvdywgTWVudSwgS2V5LCBEaXJlY3Rpb24iIGRjOnB1Ymxpc2hlcj0iSWNvbnNjb3V0IiBkYzpkYXRlPSIyMDE2LTEyLTE0IiBkYzpmb3JtYXQ9ImltYWdlL3N2Zyt4bWwiIGRjOmxhbmd1YWdlPSJlbiI+CgkJCQk8ZGM6Y3JlYXRvcj4KCQkJCQk8cmRmOkJhZz4KCQkJCQkJPHJkZjpsaT5Hb29nbGUgSW5jLjwvcmRmOmxpPgoJCQkJCTwvcmRmOkJhZz4KCQkJCTwvZGM6Y3JlYXRvcj4KCQkJPC9yZGY6RGVzY3JpcHRpb24+CgkJPC9yZGY6UkRGPgogICAgPC9tZXRhZGF0YT48L3N2Zz4K") no-repeat;
+  background-size: 20px;
+  background-position: 100% 25%;
+  transition: border-bottom-color 0.5s;
+
+  &:hover {
+    border-bottom: 1px solid adjust_color($primaryColor, $lightness: 10%);
+  }
+
+}
+
+.dropdown_menu {
+  background-color: white;
+  border: 1px solid adjust_color($primaryColor, $lightness: 40%);
+  box-shadow: 2px 2px 10px adjust_color($primaryColor, $alpha: -0.9);
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55px;
+  z-index: 1000;
+  cursor: pointer;
+
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.2s;
+
+  div {
+    padding: 2px 8px;
+    background-color: white;
+    transition: background-color 0.25s;
+
+    &:hover {
+      background-color: adjust_color($primaryColor, $lightness: 55%);
+    }
+  }
+}
+
+
+.icons {
+  a {
+    i {
+      font-size: 1.5rem;
+      color: adjust_color($primaryColor, $lightness: 15%);
+    }
+  }
+
+  i {
+    font-size: 1.5rem;
+    color: adjust_color($primaryColor, $lightness: 15%);
+  }
+}
+
+.pagination_info {
+  margin: 0 60px;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

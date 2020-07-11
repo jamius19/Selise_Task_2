@@ -30,7 +30,7 @@ function ResultTable(props) {
                         let team1Won = value.score1 > value.score2;
 
                         return (
-                            <tr>
+                            <tr key={`${value.team1.key}-${value.team2.key}-${value.date}`}>
                                 <td>{value.date}</td>
                                 <td>
                                     <img className={`${styles.trophy_icon} mr-2 ${draw ? "d-none" : (team1Won? "" : "d-none")}`} src={trophy_icon} alt="trophy_icon"/>

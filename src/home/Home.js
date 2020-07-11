@@ -1,16 +1,30 @@
 import React, {Component} from 'react';
+import Dropdown from 'react-dropdown';
 
 // Importing Assets
 import styles from './Home.module.scss';
 import ResultTable from "../components/ResultTable/ResultTable";
 
+import premierLeagueLogo from './assets/banner_premier_league.svg';
+
+const options = [
+    '10', '20', '30'
+]
+
+
 class Home extends Component {
 
-    state = {
-        fetchComplete: false
-    }
-    restEndpoint = "https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/en.1.json";
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            fetchComplete: false
+        };
+
+        this.restEndpoint = "https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/en.1.json";
+
+        this.onChangeItemCount = this.onChangeItemCount.bind(this);
+    }
 
     componentDidMount() {
         fetch(this.restEndpoint)
@@ -28,23 +42,84 @@ class Home extends Component {
             .catch(console.log)
     }
 
+    onChangeItemCount(count) {
+        this.setState({
+            perPage: count.value
+        });
+    }
+
     render() {
         return (
-            <main className="container mt-4">
+            <main className="container mt-4" style={{marginBottom: '150px'}}>
                 {(() => this.state.fetchComplete ? (
 
-                    <div>
-                        <div className={styles.banner} alt="">
-                            <h2 className={styles.banner_title}>{this.state.data.name}</h2>
+                    <div className="">
+                        <img className={styles.banner} src={premierLeagueLogo} alt=""/>
+                        <h2 className={styles.banner_title}>{this.state.data.name}</h2>
+
+                        <div className="mt-5">
+                            <ResultTable
+                                matches={this.state.matches.slice(this.state.start, this.state.start + this.state.perPage)}/>
                         </div>
 
-                        <h4 className="mt-5 mb-4 text-center">Match Results</h4>
+                        <div className="d-flex mt-3">
+                            <div className="ml-auto d-flex align-items-center">
+                                <span className="text-weight-bold">Items per page</span>
+                                <Dropdown className="ml-2 position-relative"
+                                          controlClassName={styles.dropdown}
+                                          menuClassName={styles.dropdown_menu}
+                                          onChange={this.onChangeItemCount}
+                                          options={options} value={`${this.state.perPage}`}
+                                          placeholder="Select an option"/>
 
-                        <div>
-                            <ResultTable matches={this.state.matches.slice(this.state.start, this.state.perPage)}/>
+                                <div className={styles.pagination_info}>
+                                    Showing &nbsp;{parseInt(this.state.start + 1)} - {parseInt(this.state.start + this.state.perPage)} of {this.state.matches.length}
+                                </div>
+
+                                <div className={`d-flex ${styles.icons}`}>
+                                    {(() => {
+                                        return this.state.start !== 0 ? (
+                                            <React.Fragment>
+                                                <a href="#">
+                                                    <i className="fas fa-angle-double-left mr-3"></i>
+                                                </a>
+
+                                                <a href="#">
+                                                    <i className="fas fa-angle-left mr-3"></i>
+                                                </a>
+                                            </React.Fragment>
+                                        ) : (
+                                            <React.Fragment>
+                                                <i className={`fas fa-angle-double-left mr-4 ${styles.disabled}`}></i>
+
+                                                <i className={`fas fa-angle-left mr-4 ${styles.disabled}`}></i>
+                                            </React.Fragment>
+                                        );
+                                    })()}
+
+                                    {(() => {
+                                        return this.state.matches.length / this.state.perPage !== 0 ? (
+                                            <React.Fragment>
+                                                <a href="#">
+                                                    <i className="fas fa-angle-double-right mr-4"></i>
+                                                </a>
+
+                                                <a href="#">
+                                                    <i className="fas fa-angle-right"></i>
+                                                </a>
+                                            </React.Fragment>
+                                        ) : (
+                                            <React.Fragment>
+                                                <i className="fas fa-angle-double-right mr-4"></i>
+
+                                                <i className="fas fa-angle-right mr-3"></i>
+                                            </React.Fragment>
+                                        );
+                                    })()}
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 ) : <h5 className="text-center">Loading. Please Wait.</h5>)()}
             </main>
         );

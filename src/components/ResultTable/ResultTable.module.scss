@@ -1,17 +1,17 @@
 @import '../../global/stylesheets/variables';
 
 $color: $primaryColor;
-$colorLight: adjust_color($primaryColor, $lightness: 45%);
+$colorLight: adjust_color($primaryColor, $lightness: 57%);
 
 .team {
   background-color: $colorLight;
   padding: 3px 15px 1.5px 15px;
   color: $primaryColor;
   outline: none;
-  border: 1px solid adjust_color($color, $lightness: 44%);
+  border: 1px solid adjust_color($color, $lightness: 50%);
   transition: background-color 0.5s, border 0.5s;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: none !important;
 
   &:focus {
     outline: none;
@@ -20,8 +20,8 @@ $colorLight: adjust_color($primaryColor, $lightness: 45%);
 
   &:hover {
     color: $primaryColor;
-    background-color: adjust_color($colorLight, $lightness: -4%);
-    border: 1px solid adjust_color($color, $lightness: 30%);
+    background-color: adjust_color($colorLight, $lightness: -5%);
+    border: 1px solid adjust_color($color, $lightness: 35%);
   }
 }
 
