@@ -1,0 +1,7 @@
+@import "../../global/stylesheets/variables";
+
+.modal_td {
+  td:not(:last-child) {
+    border-right: 1px solid adjust_color($primaryColor, $lightness: 58%);
+  }
+}
