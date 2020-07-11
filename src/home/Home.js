@@ -50,7 +50,7 @@ class Home extends Component {
             // Updating data as the URL has been changed
             if (Object.keys(this.props.match.params).length !== 0) {
                 this.setState({
-                    start: (parseInt(this.props.match.params["pageNo"]) - 1) * perPageCount,
+                    start: Math.min((parseInt(this.props.match.params["pageNo"]) - 1) * perPageCount, this.state.matches.length),
                     currentPage: parseInt(this.props.match.params["pageNo"])
                 })
             } else {
@@ -77,10 +77,12 @@ class Home extends Component {
                 let perPageCount = getCookie('perPage') ? getCookie('perPage') : 10;
                 perPageCount = parseInt(perPageCount);
 
+                let matches = this.parseMatches(parsedData);
+
                 // Initial Variable Setup
                 this.setState({
                     data: parsedData,
-                    matches: this.parseMatches(parsedData),
+                    matches: matches,
                     fetchComplete: true,
                     start: 0,
                     currentPage: 1,
@@ -90,7 +92,7 @@ class Home extends Component {
                 // Setting current page number
                 if (Object.keys(this.props.match.params).length !== 0) {
                     this.setState({
-                        start: (parseInt(this.props.match.params["pageNo"]) - 1) * perPageCount,
+                        start: Math.min((parseInt(this.props.match.params["pageNo"]) - 1) * perPageCount, matches.length),
                         currentPage: parseInt(this.props.match.params["pageNo"])
                     })
                 }
@@ -213,7 +215,7 @@ class Home extends Component {
 
                                 <div className="order-1 order-lg-1 col-6 col-lg-3 my-lg-0">
                                     <div className={styles.pagination_info}>
-                                        Showing &nbsp;{parseInt(this.state.start + 1)} - {Math.min(parseInt(this.state.start + this.state.perPage), this.state.matches.length)} of {this.state.matches.length}
+                                        Showing &nbsp;{Math.min(this.state.start + 1, this.state.matches.length)} - {Math.min(parseInt(this.state.start + this.state.perPage), this.state.matches.length)} of {this.state.matches.length}
                                     </div>
                                 </div>
 
@@ -223,39 +225,39 @@ class Home extends Component {
                                             return this.state.currentPage > 1 ? (
                                                 <React.Fragment>
                                                     <Link to={`/`}>
-                                                        <i className="fas fa-angle-double-left mr-4"></i>
+                                                        <i className="fas fa-angle-double-left mr-4"/>
                                                     </Link>
 
                                                     <Link to={`/page/${this.state.currentPage - 1}`}>
-                                                        <i className="fas fa-angle-left mr-4"></i>
+                                                        <i className="fas fa-angle-left mr-4"/>
                                                     </Link>
                                                 </React.Fragment>
                                             ) : (
                                                 <React.Fragment>
-                                                    <i className={`fas fa-angle-double-left mr-4 ${styles.disabled}`}></i>
+                                                    <i className={`fas fa-angle-double-left mr-4 ${styles.disabled}`}/>
 
-                                                    <i className={`fas fa-angle-left mr-4 ${styles.disabled}`}></i>
+                                                    <i className={`fas fa-angle-left mr-4 ${styles.disabled}`}/>
                                                 </React.Fragment>
                                             );
                                         })()}
 
                                         {(() => {
-                                            return parseInt(this.state.matches.length / this.state.perPage) !== this.state.currentPage ? (
+                                            return Math.ceil(this.state.matches.length / this.state.perPage) > this.state.currentPage ? (
                                                 <React.Fragment>
                                                     <Link to={`/page/${this.state.currentPage + 1}`}>
-                                                        <i className="fas fa-angle-right mr-4"></i>
+                                                        <i className="fas fa-angle-right mr-4"/>
                                                     </Link>
 
                                                     <Link
-                                                        to={`/page/${parseInt(this.state.matches.length / this.state.perPage)}`}>
-                                                        <i className="fas fa-angle-double-right"></i>
+                                                        to={`/page/${Math.ceil(this.state.matches.length / this.state.perPage)}`}>
+                                                        <i className="fas fa-angle-double-right"/>
                                                     </Link>
                                                 </React.Fragment>
                                             ) : (
                                                 <React.Fragment>
-                                                    <i className={`fas fa-angle-right mr-4 ${styles.disabled}`}></i>
+                                                    <i className={`fas fa-angle-right mr-4 ${styles.disabled}`}/>
 
-                                                    <i className={`fas fa-angle-double-right ${styles.disabled}`}></i>
+                                                    <i className={`fas fa-angle-double-right ${styles.disabled}`}/>
 
                                                 </React.Fragment>
                                             );
