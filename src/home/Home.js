@@ -177,11 +177,11 @@ class Home extends Component {
                     <div>
                         {(() => this.state.currentPage !== 1 ? (
                             <Helmet>
-                                <title>{`Premier League Score - Page ${this.state.currentPage}`}</title>
+                                <title>{`Premier League Score (Modal) - Page ${this.state.currentPage}`}</title>
                             </Helmet>
                         ): (
                             <Helmet>
-                                <title>{"Premier League Score"}</title>
+                                <title>{"Premier League Score (Modal)"}</title>
                             </Helmet>
                         ))()}
 
