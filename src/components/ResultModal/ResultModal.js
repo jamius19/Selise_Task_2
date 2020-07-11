@@ -11,8 +11,8 @@ import styles from './ResultModal.module.scss';
 function ResultModal(props) {
     return (
         <div>
-            <Rodal height={300} visible={props.isVisible} onClose={props.onModalClose}>
-                <div className="mt-5 px-4 pb-4">
+            <Rodal height={300} width={window.innerWidth < 400 ? 300: 400} visible={props.isVisible} onClose={props.onModalClose}>
+                <div className="mt-5 px-sm-4 pb-2 pb-sm-4">
 
                     <h5>Score Summary</h5>
                     <h3 className="mb-4">{props.data.name}</h3>
