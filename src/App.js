@@ -15,7 +15,7 @@ import './vendor/bootswatch/bootswatch_import.scss'
 import './global/stylesheets/overrides.scss'
 
 // Importing Stylesheets
-import './App.css';
+import './App.scss';
 
 function App() {
     return (

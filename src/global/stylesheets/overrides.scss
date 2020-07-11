@@ -36,7 +36,6 @@ tr:nth-child(even) {
 }
 
 
-
 @media only screen {
   @media (max-width: $sm) {
 
@@ -81,7 +80,13 @@ tr:nth-child(even) {
 
   @media (min-width: $xxl) {
     .container {
-      max-width: 55% !important;
+      max-width: 68% !important;
+    }
+  }
+
+  @media (min-width: $xxxl) {
+    .container {
+      max-width: 57% !important;
     }
   }
 }
