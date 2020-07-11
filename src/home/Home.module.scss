@@ -1,7 +1,7 @@
 @import "../global/stylesheets/variables";
 
 .banner {
-  height: 150px;
+  height: 70px;
   display: block;
   margin: auto;
 }
@@ -9,9 +9,9 @@
 .banner_title {
   text-align: center;
   position: relative;
-  left: 70px;
+  top: 10px;
   color: #1f52a3;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   font-weight: bold;
 }
 
@@ -65,19 +65,19 @@
 .icons {
   a {
     i {
-      font-size: 1.5rem;
+      font-size: 2rem;
       color: adjust_color($primaryColor, $lightness: 15%);
     }
   }
 
   i {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: adjust_color($primaryColor, $lightness: 15%);
   }
 }
 
 .pagination_info {
-  margin: 0 60px;
+  //margin: 0 60px;
 }
 
 .disabled {
@@ -92,5 +92,76 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+
+@media only screen {
+  @media (max-width: $sm) {
+
+  }
+
+  @media (min-width: $sm) and (max-width: $md) {
+
+  }
+
+  @media (max-width: $md) {
+
+  }
+
+
+  @media (min-width: $md) {
+  }
+
+  @media (min-width: $md) and (max-width: $lg) {
+
+  }
+
+  @media (max-width: $lg) {
+
+  }
+
+  @media (min-width: $lg) {
+    .banner {
+      height: 150px;
+    }
+
+    .banner_title {
+      left: 70px;
+      top: -2px;
+      font-size: 1.7rem;
+    }
+
+    .icons {
+      position: absolute;
+      right: 14.5px;
+      top: -2px;
+
+      a {
+        i {
+          font-size: 1.65rem;
+        }
+      }
+
+      i {
+        font-size: 1.65rem;
+      }
+    }
+  }
+
+  @media (min-width: $lg) and (max-width: $xl) {
+
+  }
+
+  @media (min-width: $xl) {
+
+  }
+
+  @media (min-width: $xl) and (max-width: $xxl) {
+
+  }
+
+  @media (min-width: $xxl) {
+
   }
 }

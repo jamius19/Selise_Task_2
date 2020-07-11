@@ -54,6 +54,8 @@ class Home extends Component {
                     perPage: perPageCount,
                 });
             }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
 
@@ -116,62 +118,71 @@ class Home extends Component {
                                 matches={this.state.matches.slice(this.state.start, this.state.start + this.state.perPage)}/>
                         </div>
 
-                        <div className="d-flex mt-3">
-                            <div className="ml-auto d-flex align-items-center">
-                                <span className="text-weight-bold">Items per page</span>
-                                <Dropdown className="ml-2 position-relative"
-                                          controlClassName={styles.dropdown}
-                                          menuClassName={styles.dropdown_menu}
-                                          onChange={this.onChangeItemCount}
-                                          options={options} value={`${this.state.perPage}`}
-                                          placeholder="Select an option"/>
+                        <div className="mt-4">
+                            <div className="row justify-content-lg-end">
 
-                                <div className={styles.pagination_info}>
-                                    Showing &nbsp;{parseInt(this.state.start + 1)} - {parseInt(this.state.start + this.state.perPage)} of {this.state.matches.length}
+                               <div className="order-2 order-lg-0 col-6 col-sm-5 col-md-4 col-lg-3">
+                                   <div className="d-flex">
+                                       <span className="text-weight-bold">Items per page</span>
+                                       <Dropdown className="ml-2 position-relative"
+                                                 controlClassName={styles.dropdown}
+                                                 menuClassName={styles.dropdown_menu}
+                                                 onChange={this.onChangeItemCount}
+                                                 options={options} value={`${this.state.perPage}`}
+                                                 placeholder="Select an option"/>
+                                   </div>
+                               </div>
+
+                                <div className="order-1 order-lg-1 col-6 col-lg-3 my-lg-0">
+                                    <div className={styles.pagination_info}>
+                                        Showing &nbsp;{parseInt(this.state.start + 1)} - {parseInt(this.state.start + this.state.perPage)} of {this.state.matches.length}
+                                    </div>
                                 </div>
 
-                                <div className={`d-flex ${styles.icons}`}>
-                                    {(() => {
-                                        return this.state.currentPage > 1 ? (
-                                            <React.Fragment>
-                                                <Link to={`/`}>
-                                                    <i className="fas fa-angle-double-left mr-4"></i>
-                                                </Link>
+                                <div className="order-0 order-lg-2 col-lg-2 position-relative mb-4 mt-lg-0">
+                                    <div className={`d-flex ${styles.icons}`}>
+                                        {(() => {
+                                            return this.state.currentPage > 1 ? (
+                                                <React.Fragment>
+                                                    <Link to={`/`}>
+                                                        <i className="fas fa-angle-double-left mr-4"></i>
+                                                    </Link>
 
-                                                <Link to={`/page/${this.state.currentPage - 1}`}>
-                                                    <i className="fas fa-angle-left mr-4"></i>
-                                                </Link>
-                                            </React.Fragment>
-                                        ) : (
-                                            <React.Fragment>
-                                                <i className={`fas fa-angle-double-left mr-4 ${styles.disabled}`}></i>
+                                                    <Link to={`/page/${this.state.currentPage - 1}`}>
+                                                        <i className="fas fa-angle-left mr-4"></i>
+                                                    </Link>
+                                                </React.Fragment>
+                                            ) : (
+                                                <React.Fragment>
+                                                    <i className={`fas fa-angle-double-left mr-4 ${styles.disabled}`}></i>
 
-                                                <i className={`fas fa-angle-left mr-4 ${styles.disabled}`}></i>
-                                            </React.Fragment>
-                                        );
-                                    })()}
+                                                    <i className={`fas fa-angle-left mr-4 ${styles.disabled}`}></i>
+                                                </React.Fragment>
+                                            );
+                                        })()}
 
-                                    {(() => {
-                                        return parseInt(this.state.matches.length / this.state.perPage) !== this.state.currentPage ? (
-                                            <React.Fragment>
-                                                <Link to={`/page/${this.state.currentPage + 1}`}>
-                                                    <i className="fas fa-angle-right mr-4"></i>
-                                                </Link>
+                                        {(() => {
+                                            return parseInt(this.state.matches.length / this.state.perPage) !== this.state.currentPage ? (
+                                                <React.Fragment>
+                                                    <Link to={`/page/${this.state.currentPage + 1}`}>
+                                                        <i className="fas fa-angle-right mr-4"></i>
+                                                    </Link>
 
-                                                <Link
-                                                    to={`/page/${parseInt(this.state.matches.length / this.state.perPage)}`}>
-                                                    <i className="fas fa-angle-double-right"></i>
-                                                </Link>
-                                            </React.Fragment>
-                                        ) : (
-                                            <React.Fragment>
-                                                <i className={`fas fa-angle-right mr-4 ${styles.disabled}`}></i>
+                                                    <Link
+                                                        to={`/page/${parseInt(this.state.matches.length / this.state.perPage)}`}>
+                                                        <i className="fas fa-angle-double-right"></i>
+                                                    </Link>
+                                                </React.Fragment>
+                                            ) : (
+                                                <React.Fragment>
+                                                    <i className={`fas fa-angle-right mr-4 ${styles.disabled}`}></i>
 
-                                                <i className={`fas fa-angle-double-right ${styles.disabled}`}></i>
+                                                    <i className={`fas fa-angle-double-right ${styles.disabled}`}></i>
 
-                                            </React.Fragment>
-                                        );
-                                    })()}
+                                                </React.Fragment>
+                                            );
+                                        })()}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +193,6 @@ class Home extends Component {
             </main>
         );
     }
-
 
     parseMatches(parsedData) {
         let matches = [];
