@@ -1,1 +1,33 @@
 @import '../../global/stylesheets/variables';
+
+$color: $primaryColor;
+$colorLight: adjust_color($primaryColor, $lightness: 45%);
+
+.team {
+  background-color: $colorLight;
+  padding: 3px 15px 1.5px 15px;
+  color: $primaryColor;
+  outline: none;
+  border: 1px solid adjust_color($color, $lightness: 44%);
+  transition: background-color 0.5s, border 0.5s;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
+
+  &:hover {
+    color: $primaryColor;
+    background-color: adjust_color($colorLight, $lightness: -4%);
+    border: 1px solid adjust_color($color, $lightness: 30%);
+  }
+}
+
+
+.trophy_icon {
+  width: 20px;
+  position: relative;
+  top: -1px;
+}

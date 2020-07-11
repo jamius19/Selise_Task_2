@@ -21,6 +21,8 @@ class Home extends Component {
                     data: parsedData,
                     matches: this.parseMatches(parsedData),
                     fetchComplete: true,
+                    start: 0,
+                    perPage: 10,
                 });
             })
             .catch(console.log)
@@ -30,15 +32,19 @@ class Home extends Component {
         return (
             <main className="container mt-4">
                 {(() => this.state.fetchComplete ? (
+
                     <div>
                         <div className={styles.banner} alt="">
                             <h2 className={styles.banner_title}>{this.state.data.name}</h2>
                         </div>
 
+                        <h4 className="mt-5 mb-4 text-center">Match Results</h4>
+
                         <div>
-                            <ResultTable matches={this.state.matches.slice(0, 10)}/>
+                            <ResultTable matches={this.state.matches.slice(this.state.start, this.state.perPage)}/>
                         </div>
                     </div>
+
                 ) : <h5 className="text-center">Loading. Please Wait.</h5>)()}
             </main>
         );
