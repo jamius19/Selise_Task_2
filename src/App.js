@@ -1,4 +1,11 @@
 import React from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    withRouter
+} from "react-router-dom";
 import Home from "./home/Home";
 
 // Importing Bootswatch
@@ -12,9 +19,17 @@ import './App.css';
 
 function App() {
     return (
-        <React.Fragment>
-            <Home/>
-        </React.Fragment>
+        <Router>
+            <Switch>
+                <Route exact path={["/", "/page/:pageNo(\\d+)"]}>
+                    <Home/>
+                </Route>
+
+                <Route path="*">
+                    Wrong Path.
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 

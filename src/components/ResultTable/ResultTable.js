@@ -33,15 +33,22 @@ function ResultTable(props) {
                             <tr key={`${value.team1.key}-${value.team2.key}-${value.date}`}>
                                 <td>{value.date}</td>
                                 <td>
-                                    <img className={`${styles.trophy_icon} mr-2 ${draw ? "d-none" : (team1Won? "" : "d-none")}`} src={trophy_icon} alt="trophy_icon"/>
+                                    <img
+                                        className={`${styles.trophy_icon} mr-2 ${draw ? "d-none" : (team1Won ? "" : "d-none")}`}
+                                        src={trophy_icon} alt="trophy_icon"/>
                                     <a href="#" className={styles.team}>{value.team1.name}</a>
                                     <span className="mx-2">vs</span>
-                                    <a href="#"className={styles.team}>{value.team2.name}</a>
-                                    <img className={`${styles.trophy_icon} ml-2 ${draw ? "d-none" : (team1Won? "d-none" : "")}`} src={trophy_icon} alt="trophy_icon"/>
+                                    <a href="#" className={styles.team}>{value.team2.name}</a>
+                                    <img
+                                        className={`${styles.trophy_icon} ml-2 ${draw ? "d-none" : (team1Won ? "d-none" : "")}`}
+                                        src={trophy_icon} alt="trophy_icon"/>
                                 </td>
-                                <td><span className={`${draw ? "" : (team1Won? "font-weight-bold" : "")}`}>{value.score1}</span>
+                                <td><span
+                                    className={`${draw ? "" : (team1Won ? "font-weight-bold" : "")}`}>{value.score1}</span>
                                     <span className="mx-1">-</span>
-                                    <span className={`${draw ? "" : (team1Won? "" : "font-weight-bold")}`}>{value.score2}</span></td>
+                                    <span
+                                        className={`${draw ? "" : (team1Won ? "" : "font-weight-bold")}`}>{value.score2}</span>
+                                </td>
                             </tr>
                         );
                     })

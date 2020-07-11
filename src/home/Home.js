@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
 import Dropdown from 'react-dropdown';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    withRouter
+} from "react-router-dom";
+
+import {getCookie, setCookie, deleteCookie} from "../util/UtilityFunc";
 
 // Importing Assets
 import styles from './Home.module.scss';
@@ -18,7 +27,8 @@ class Home extends Component {
         super(props);
 
         this.state = {
-            fetchComplete: false
+            fetchComplete: false,
+            error: false
         };
 
         this.restEndpoint = "https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/en.1.json";
@@ -26,25 +36,67 @@ class Home extends Component {
         this.onChangeItemCount = this.onChangeItemCount.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.location !== prevProps.location) {
+            let perPageCount = getCookie('perPage') ? getCookie('perPage') : 10;
+            perPageCount = parseInt(perPageCount);
+
+
+            if (Object.keys(this.props.match.params).length !== 0) {
+                this.setState({
+                    start: (parseInt(this.props.match.params["pageNo"]) - 1) * perPageCount,
+                    currentPage: parseInt(this.props.match.params["pageNo"])
+                })
+            } else {
+                this.setState({
+                    start: 0,
+                    currentPage: 1,
+                    perPage: perPageCount,
+                });
+            }
+        }
+    }
+
     componentDidMount() {
         fetch(this.restEndpoint)
             .then(res => res.json())
             .then((parsedData) => {
+
+                let perPageCount = getCookie('perPage') ? getCookie('perPage') : 10;
+                perPageCount = parseInt(perPageCount);
 
                 this.setState({
                     data: parsedData,
                     matches: this.parseMatches(parsedData),
                     fetchComplete: true,
                     start: 0,
-                    perPage: 10,
+                    currentPage: 1,
+                    perPage: perPageCount,
                 });
+
+
+                if (Object.keys(this.props.match.params).length !== 0) {
+                    this.setState({
+                        start: (parseInt(this.props.match.params["pageNo"]) - 1) * perPageCount,
+                        currentPage: parseInt(this.props.match.params["pageNo"])
+                    })
+                }
             })
-            .catch(console.log)
+            .catch(err => {
+                console.error(err);
+                this.setState({
+                    error: true
+                })
+            });
+
+
     }
 
     onChangeItemCount(count) {
+        setCookie("perPage", count.value);
+
         this.setState({
-            perPage: count.value
+            perPage: parseInt(count.value)
         });
     }
 
@@ -54,8 +106,10 @@ class Home extends Component {
                 {(() => this.state.fetchComplete ? (
 
                     <div className="">
-                        <img className={styles.banner} src={premierLeagueLogo} alt=""/>
-                        <h2 className={styles.banner_title}>{this.state.data.name}</h2>
+                        <Link to={"/"}>
+                            <img className={styles.banner} src={premierLeagueLogo} alt=""/>
+                            <h2 className={styles.banner_title}>{this.state.data.name}</h2>
+                        </Link>
 
                         <div className="mt-5">
                             <ResultTable
@@ -78,15 +132,15 @@ class Home extends Component {
 
                                 <div className={`d-flex ${styles.icons}`}>
                                     {(() => {
-                                        return this.state.start !== 0 ? (
+                                        return this.state.currentPage > 1 ? (
                                             <React.Fragment>
-                                                <a href="#">
-                                                    <i className="fas fa-angle-double-left mr-3"></i>
-                                                </a>
+                                                <Link to={`/`}>
+                                                    <i className="fas fa-angle-double-left mr-4"></i>
+                                                </Link>
 
-                                                <a href="#">
-                                                    <i className="fas fa-angle-left mr-3"></i>
-                                                </a>
+                                                <Link to={`/page/${this.state.currentPage - 1}`}>
+                                                    <i className="fas fa-angle-left mr-4"></i>
+                                                </Link>
                                             </React.Fragment>
                                         ) : (
                                             <React.Fragment>
@@ -98,21 +152,23 @@ class Home extends Component {
                                     })()}
 
                                     {(() => {
-                                        return this.state.matches.length / this.state.perPage !== 0 ? (
+                                        return parseInt(this.state.matches.length / this.state.perPage) !== this.state.currentPage ? (
                                             <React.Fragment>
-                                                <a href="#">
-                                                    <i className="fas fa-angle-double-right mr-4"></i>
-                                                </a>
+                                                <Link to={`/page/${this.state.currentPage + 1}`}>
+                                                    <i className="fas fa-angle-right mr-4"></i>
+                                                </Link>
 
-                                                <a href="#">
-                                                    <i className="fas fa-angle-right"></i>
-                                                </a>
+                                                <Link
+                                                    to={`/page/${parseInt(this.state.matches.length / this.state.perPage)}`}>
+                                                    <i className="fas fa-angle-double-right"></i>
+                                                </Link>
                                             </React.Fragment>
                                         ) : (
                                             <React.Fragment>
-                                                <i className="fas fa-angle-double-right mr-4"></i>
+                                                <i className={`fas fa-angle-right mr-4 ${styles.disabled}`}></i>
 
-                                                <i className="fas fa-angle-right mr-3"></i>
+                                                <i className={`fas fa-angle-double-right ${styles.disabled}`}></i>
+
                                             </React.Fragment>
                                         );
                                     })()}
@@ -120,7 +176,9 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-                ) : <h5 className="text-center">Loading. Please Wait.</h5>)()}
+                ) : this.state.error ? <h5 className="text-center text-danger">
+                        There was an error while fetching data. Please try again.</h5> :
+                    <h5 className="text-center">Loading. Please Wait.</h5>)()}
             </main>
         );
     }
@@ -137,4 +195,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default withRouter(Home);
