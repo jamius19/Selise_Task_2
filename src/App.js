@@ -8,8 +8,6 @@ import {
 } from "react-router-dom";
 import Home from "./home/Home";
 
-// Importing Bootswatch
-import './vendor/bootswatch/bootswatch_import.scss'
 
 // Importing Global Style Overrides
 import './global/stylesheets/overrides.scss'
