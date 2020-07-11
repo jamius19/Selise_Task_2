@@ -1,11 +1,20 @@
 import React from 'react';
+import Home from "./home/Home";
+
+// Importing Stylesheets
 import './App.css';
+
+// Importing Bootswatch
+import './vendor/bootswatch/bootswatch_import.scss'
+
+// Importing Global Style Overrides
+import './global/stylesheets/overrides.scss'
 
 function App() {
     return (
-        <div>
-            Starting Project.
-        </div>
+        <React.Fragment>
+            <Home/>
+        </React.Fragment>
     );
 }
 

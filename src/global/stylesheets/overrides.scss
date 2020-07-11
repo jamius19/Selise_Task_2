@@ -1,0 +1,83 @@
+@import "variables";
+
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid adjust_color($primaryColor, $lightness: 42%);
+}
+
+thead {
+  background: $primaryColor;
+  transform: scale(1.009);
+  color: white;
+  font-weight: bold;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+tbody::before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+}
+
+td, th {
+  text-align: left;
+  padding: 10px 15px;
+}
+
+tr:nth-child(even) {
+  background-color: adjust_color($primaryColor, $lightness: 48.5%);
+}
+
+
+
+@media only screen {
+  @media (max-width: $sm) {
+
+  }
+
+  @media (min-width: $sm) and (max-width: $md) {
+
+  }
+
+  @media (max-width: $md) {
+
+  }
+
+
+  @media (min-width: $md) {
+
+  }
+
+  @media (min-width: $md) and (max-width: $lg) {
+
+  }
+
+  @media (max-width: $lg) {
+
+  }
+
+  @media (min-width: $lg) {
+
+  }
+
+  @media (min-width: $lg) and (max-width: $xl) {
+
+  }
+
+  @media (min-width: $xl) {
+
+  }
+
+  @media (min-width: $xl) and (max-width: $xxl) {
+
+  }
+
+  @media (min-width: $xxl) {
+    .container {
+      max-width: 55% !important;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+.banner {
+  height: 200px;
+  margin: auto;
+
+  background: url("./assets/banner_premier_league.jpg");
+  background-size: cover;
+  position: relative;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.5s;
+
+  &:hover {
+    box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.banner_title {
+  position: absolute;
+  top: 40px;
+  right: 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
