@@ -8,12 +8,16 @@ import {getCookie, setCookie} from "../util/UtilityFunc";
 // Importing Assets
 import styles from './Home.module.scss';
 import premierLeagueLogo from './assets/banner_premier_league.svg';
+import {Helmet} from "react-helmet";
 
 
-const itemsPerPageCount = [
+const ITEMS_PER_PAGE = [
     '10', '20', '30'
 ]
 
+/* Statefull react component for the index
+ * page of the site.
+ */
 class Home extends Component {
 
     constructor(props) {
@@ -58,6 +62,7 @@ class Home extends Component {
                 });
             }
 
+            // After loading new data, scroll back to top
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
     }
@@ -169,8 +174,17 @@ class Home extends Component {
         return (
             <main className="container mt-4" style={{marginBottom: '150px'}}>
                 {(() => this.state.fetchComplete ? (
+                    <div>
+                        {(() => this.state.currentPage !== 1 ? (
+                            <Helmet>
+                                <title>{`Premier League Score - Page ${this.state.currentPage}`}</title>
+                            </Helmet>
+                        ): (
+                            <Helmet>
+                                <title>{"Premier League Score"}</title>
+                            </Helmet>
+                        ))()}
 
-                    <div className="">
                         <Link to={"/"}>
                             <img className={styles.banner} src={premierLeagueLogo} alt=""/>
                             <h2 className={styles.banner_title}>{this.state.data.name}</h2>
@@ -192,7 +206,7 @@ class Home extends Component {
                                                   controlClassName={styles.dropdown}
                                                   menuClassName={styles.dropdown_menu}
                                                   onChange={this.onChangeItemCount}
-                                                  options={itemsPerPageCount} value={`${this.state.perPage}`}
+                                                  options={ITEMS_PER_PAGE} value={`${this.state.perPage}`}
                                                   placeholder="Select an option"/>
                                     </div>
                                 </div>

@@ -3,6 +3,9 @@ import React from 'react';
 import trophy_icon from './assets/trophy_icon.png';
 import styles from './ResultTable.module.scss';
 
+/* Stateless react component for showing the
+ * modal containing statistics for a given team.
+ */
 function ResultTable(props) {
     return (
         <div>

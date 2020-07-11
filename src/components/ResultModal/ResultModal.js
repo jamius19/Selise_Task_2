@@ -4,6 +4,10 @@ import Rodal from 'rodal';
 import '../../vendor/rodal/rodal.css';
 import styles from './ResultModal.module.scss';
 
+
+/* Stateless react component for showing the
+ * table containing all the data for teams.
+ */
 function ResultModal(props) {
     return (
         <div>
