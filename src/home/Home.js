@@ -141,19 +141,19 @@ class Home extends Component {
         }
 
         this.state.matches.map(value => {
-            if (value.team1.key === teamKey) {
-                modalData.name = value.team1.name;
+            if (value.team1 === teamKey) {
+                modalData.name = value.team1;
                 modalData.played++;
 
-                if (value.score1 > value.score2) modalData.win++;
-                else if (value.score1 < value.score2) modalData.loss++;
+                if (value.score.ft[0] > value.score.ft[1]) modalData.win++;
+                else if (value.score.ft[0] < value.score.ft[1]) modalData.loss++;
                 else modalData.draw++;
-            } else if (value.team2.key === teamKey) {
-                modalData.name = value.team2.name;
+            } else if (value.team2 === teamKey) {
+                modalData.name = value.team2;
                 modalData.played++;
 
-                if (value.score2 > value.score1) modalData.win++;
-                else if (value.score2 < value.score1) modalData.loss++;
+                if (value.score.ft[1] > value.score.ft[0]) modalData.win++;
+                else if (value.score.ft[1] < value.score.ft[0]) modalData.loss++;
                 else modalData.draw++;
             }
         });
